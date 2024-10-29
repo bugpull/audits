@@ -1,18 +1,28 @@
-# [H-01] in `farmPlots()` wrong logical opeartor will make `plotId` to have full rewards
+## Summary
 
-# Lines of code
+
+| ID                                                                                                                          | Title                                                                                            | Severity |
+| --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | -------- |
+| [H-01](2024-07-munchables.md#h-01-infarmplotswrong-logical-opeartor-will-makeplotidto-have-full-rewards)                    | in `farmPlots()` wrong logical opeartor will make `plotId` to have full rewards                  | High     |
+| [H-02](2024-07-munchables.md#h-02-casting-underflow-infarmplotsmaking-user-able-to-get-huge-number-of-schnibbles)           | Casting Underflow in `farmplots()` making user able to get huge number of schnibbles             | High     |
+| [H-03](2024-07-munchables.md#h-03-infarmplotsan-underflow-in-edge-case-leading-to-freeze-of-funds-nft)                      | in `farmPlots()` an underflow in edge case leading to freeze of funds (NFT)                      | High     |
+| [L-01](2024-07-munchables.md#l-01-whenever-a_reconfigurehappens-tobase_schnibble_ratesome-users-will-take-advantages-of-it) | Whenever a `_reconfigure` happens to `BASE_SCHNIBBLE_RATE` some users will take advantages of it | Low      |
+
+## [H-01] in `farmPlots()` wrong logical opeartor will make `plotId` to have full rewards
+
+### Lines of code
 
 [https://github.com/code-423n4/2024-07-munchables/blob/94cf468aaabf526b7a8319f7eba34014ccebe7b9/src/managers/LandManager.sol#L258](https://github.com/code-423n4/2024-07-munchables/blob/94cf468aaabf526b7a8319f7eba34014ccebe7b9/src/managers/LandManager.sol#L258)
 
-# Vulnerability details
+### Vulnerability details
 
-## Impact
+### Impact
 
 Bigger rewards for invalid `plotId`
 
 The wrong logical operator will make that invalid `plotId` to have full rewards instead of limited rewards calculated with `plotMetadata[landlord].lastUpdated` as `timestamp`
 
-## Proof of Concept
+### Proof of Concept
 
 Before the overview of the bug we first need to know that `PlotId` = 0 is a valid Plot.
 
@@ -54,11 +64,11 @@ The problem in that `if` is that it checks for `_toiler.plotId` that is > bu
 
 Now plotId that is = to `NumPlots` will get full rewards cause its timeStamp will be assigned to `block.timestamp` in the `for` Loop, although it should have gotten its reward calculated from `plotMetadata[landlord].lastUpdated`, but due to the wrong operator (_getNumPlots(landlord) < _toiler.plotId instead of <=) that specific `plotId` will have full rewards.
 
-## Tools Used
+### Tools Used
 
 Manaul review
 
-## Recommended Mitigation Steps
+### Recommended Mitigation Steps
 
 Put the right logical operator instead of the wrong one
 
@@ -70,24 +80,24 @@ Put the right logical operator instead of the wrong one
             }
 ```
 
-## Assessed type
+### Assessed type
 
 Invalid Validation
 
 
-# [H-02] Casting Underflow in `farmplots()` making user able to get huge number of schnibbles
+## [H-02] Casting Underflow in `farmplots()` making user able to get huge number of schnibbles
 
-# Lines of code
+### Lines of code
 
 [https://github.com/code-423n4/2024-07-munchables/blob/94cf468aaabf526b7a8319f7eba34014ccebe7b9/src/managers/LandManager.sol#L283-L286](https://github.com/code-423n4/2024-07-munchables/blob/94cf468aaabf526b7a8319f7eba34014ccebe7b9/src/managers/LandManager.sol#L283-L286)
 
-# Vulnerability details
+### Vulnerability details
 
-## Impact
+### Impact
 
 the user can get millions of schnibles due to wrong casting.
 
-## Proof of Concept
+### Proof of Concept
 
 The problem arises in `_farmPlots`
 
@@ -146,11 +156,11 @@ Lets take an Example to show why the above equation is wrong:
 
 Now we we cast -36 to uint256 At Line 283 this will cause underflow and will have a value of `type(uint256).max - 36`
 
-## Tools Used
+### Tools Used
 
 manual testing
 
-## Recommended Mitigation Steps
+### Recommended Mitigation Steps
 
 this can easily prevented by dividing by 100 inside () having `(schnibblesTotal) * finalBonus)`
 
@@ -162,24 +172,24 @@ this can easily prevented by dividing by 100 inside () having `(schnibblesTotal
             );
 ```
 
-## Assessed type
+### Assessed type
 
 Under/Overflow
 
-# [H-03] in `farmPlots()` an underflow in edge case leading to freeze of funds (NFT)
+## [H-03] in `farmPlots()` an underflow in edge case leading to freeze of funds (NFT)
 
-# Lines of code
+### Lines of code
 
 [https://github.com/code-423n4/2024-07-munchables/blob/94cf468aaabf526b7a8319f7eba34014ccebe7b9/src/managers/LandManager.sol#L232-L310](https://github.com/code-423n4/2024-07-munchables/blob/94cf468aaabf526b7a8319f7eba34014ccebe7b9/src/managers/LandManager.sol#L232-L310)  
 [https://github.com/code-423n4/2024-07-munchables/blob/94cf468aaabf526b7a8319f7eba34014ccebe7b9/src/managers/LandManager.sol#L162-L168](https://github.com/code-423n4/2024-07-munchables/blob/94cf468aaabf526b7a8319f7eba34014ccebe7b9/src/managers/LandManager.sol#L162-L168)
 
-# Vulnerability details
+### Vulnerability details
 
-## Impact
+### Impact
 
 The user won't be able to farm their plots or `unstake` due to the txn always panic reverting. Leading to loss of funds and DOS
 
-## Proof of Concept
+### Proof of Concept
 
 The problem arises whenever `PRICE_PER_PLOT` gets increased through `configUpdated`
 
@@ -241,30 +251,30 @@ File: LandManager.sol
 
 and the `landlord.lastUpdated` is only updated when he lock or unlock funds (which in our case didn't lock or unlock any funds before the user stake to him)
 
-## Tools Used
+### Tools Used
 
 Manual Review
 
-## Recommended Mitigation Steps
+### Recommended Mitigation Steps
 
 To avoid this case from happening when `PRICE_PER_PLOT` gets increased we should check if `landlord.lastUpdated` is > than `_toiler.lastToilDate` inside the block of this case `if (_getNumPlots(landlord) < _toiler.plotId)`
 
 So that we differentiate from cases that LandLord unlocked funds from cases where `PRICE_PER_PLOT` got increased and The LandLord didn't do any thing with his funds for a while
 
-## Assessed type
+### Assessed type
 
 Under/Overflow
 
 
-# [L-01] Whenever a `_reconfigure` happens to `BASE_SCHNIBBLE_RATE` some users will take advantages of it
+## [L-01] Whenever a `_reconfigure` happens to `BASE_SCHNIBBLE_RATE` some users will take advantages of it
 
-## Impact
+### Impact
 
 The problem here is that Whenever a `_reconfigure` happens to `BASE_SCHNIBBLE_RATE` if its going to be lower some users will frontun the update to `farmPlots`
 
 if its bigger then some (who didn't farm for a while) will have more schnibbles through `farmPlots` than people who just farmed leading to descripancies between rewards accumulated for users that staked for same time and will lead to loss of funds (schnibbles)
 
-## Proof of Concept
+### Proof of Concept
 
 The problem is that Whenever a `_reconfigure` happens to `BASE_SCHNIBBLE_RATE` the old one can't be used for references purposes for people who were staking for a while
 
@@ -286,11 +296,11 @@ In addition to that this can be gamed by other users to front run the change by 
 
 same thing with the unfairness the other way if `BASE_SCHNIBBLE_RATE` is to decrease but we flip the example and there would be no FrontRun
 
-## Tools Used
+### Tools Used
 
 Manual Review
 
-## Recommended Mitigation Steps
+### Recommended Mitigation Steps
 
 Using FlashBots will prevent the frontRun part but won't prevent the unfairness of the fact that some users may have just claimed schnibbles one block earlier before the decrease update by luck.
 
