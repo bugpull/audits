@@ -8,7 +8,7 @@
 | [H-03](2024-07-munchables.md#h-03-infarmplotsan-underflow-in-edge-case-leading-to-freeze-of-funds-nft)                      | in `farmPlots()` an underflow in edge case leading to freeze of funds (NFT)                      | High     |
 | [L-01](2024-07-munchables.md#l-01-whenever-a_reconfigurehappens-tobase_schnibble_ratesome-users-will-take-advantages-of-it) | Whenever a `_reconfigure` happens to `BASE_SCHNIBBLE_RATE` some users will take advantages of it | Low      |
 
-## [H-01] in `farmPlots()` wrong logical opeartor will make `plotId` to have full rewards
+## [H-01] in `farmPlots()` wrong logical opeartor will make `plotId` to have full rewards, By [**Hunter**](https://github.com/IlIlHunterlIlI)
 
 ### Lines of code
 
@@ -85,7 +85,7 @@ Put the right logical operator instead of the wrong one
 Invalid Validation
 
 
-## [H-02] Casting Underflow in `farmplots()` making user able to get huge number of schnibbles
+## [H-02] Casting Underflow in `farmplots()` making user able to get huge number of schnibbles, By [**Rzizah**](https://github.com/rzizah)
 
 ### Lines of code
 
@@ -176,7 +176,7 @@ this can easily prevented by dividing by 100 inside () having `(schnibblesTotal
 
 Under/Overflow
 
-## [H-03] in `farmPlots()` an underflow in edge case leading to freeze of funds (NFT)
+## [H-03] in `farmPlots()` an underflow in edge case leading to freeze of funds (NFT), By [**Hunter**](https://github.com/IlIlHunterlIlI)
 
 ### Lines of code
 
@@ -266,7 +266,7 @@ So that we differentiate from cases that LandLord unlocked funds from cases wher
 Under/Overflow
 
 
-## [L-01] Whenever a `_reconfigure` happens to `BASE_SCHNIBBLE_RATE` some users will take advantages of it
+## [L-01] Whenever a `_reconfigure` happens to `BASE_SCHNIBBLE_RATE` some users will take advantages of it, By [**Hunter**](https://github.com/ililhunterlili)
 
 ### Impact
 
