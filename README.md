@@ -1,19 +1,17 @@
 # About us
 
-**BUGPULL** is a dedicated team with a proven track record. By:
-- [Hunter](https://github.com/ililHunterlili).
+**BUGPULL** represents the collaborative work of two independent security researchers:
+
+- [Hunter](https://github.com/ililHunterlili)
 - [Mostafa](https://github.com/rzizah)
 
-We consistently deliver top-notch Results. We've uncovered vulnerabilities across a diverse range of Dapps, DeFi protocols, and excelled in numerous audit competitions.
+Each of us maintains our own active security research, but we join forces for select projects where our combined expertise can uncover the most critical vulnerabilities. Our individual and joint efforts have led to significant findings across DeFi protocols, Dapps, and competitive audits.
 
-With experience conducting multiple audits and discovering unique, severe issues, we continually expand our knowledge and skills. Our commitment is to provide exceptional expertise and maximize the security value for every protocol we engage with.
+Check out our individual profiles to see our complete security work, and explore this repository for our collaborative achievements that showcase what happens when two skilled researchers align their focus.
 
-This repository showcases our work, reflecting our dedication to making decentralized finance safer for everyone.
+# Let's Work Together
 
-
-# Book an audit
-
-If you’re ready to secure your protocol and partner with experts you can trust, reach out to us through the following platforms:
+Ready to get your protocol reviewed? Reach out through:
 
 - [**Twitter**](https://x.com/bugpull) - [Hunter](https://x.com/IlIlHunterlIlI) / [Rzizah](https://x.com/rzizah_)
 
