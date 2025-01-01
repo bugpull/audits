@@ -1,6 +1,10 @@
 # About us
 
-**BUGPULL** is a dedicated team with a proven track record. We consistently deliver top-notch security audits. We've uncovered vulnerabilities across a diverse range of Dapps, DeFi protocols, and excelled in numerous audit competitions.
+**BUGPULL** is a dedicated team with a proven track record. For Solo acheivements of team memebers Here:
+- [Hunter](https://github.com/ililHunterlili).
+- [Mostafa](https://github.com/rzizah)
+
+We consistently deliver top-notch Results. We've uncovered vulnerabilities across a diverse range of Dapps, DeFi protocols, and excelled in numerous audit competitions.
 
 With experience conducting multiple audits and discovering unique, severe issues, we continually expand our knowledge and skills. Our commitment is to provide exceptional expertise and maximize the security value for every protocol we engage with.
 
