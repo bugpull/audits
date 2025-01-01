@@ -1,6 +1,6 @@
 # About us
 
-**BUGPULL** is a dedicated team with a proven track record. For Solo acheivements of team memebers Here:
+**BUGPULL** is a dedicated team with a proven track record. By:
 - [Hunter](https://github.com/ililHunterlili).
 - [Mostafa](https://github.com/rzizah)
 
