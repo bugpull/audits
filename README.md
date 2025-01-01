@@ -16,7 +16,6 @@ This repository showcases our work, reflecting our dedication to making decentra
 If you’re ready to secure your protocol and partner with experts you can trust, reach out to us through the following platforms:
 
 - [**Twitter**](https://x.com/bugpull) - [Hunter](https://x.com/IlIlHunterlIlI) / [Rzizah](https://x.com/rzizah_)
-- [**Discord**](https://discord.com/users/1285983684565930025)
 
 
 # 🏆 Honors and Distinctions 🏆
