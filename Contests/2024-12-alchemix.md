@@ -1,3 +1,11 @@
+# Summary
+
+| ID                                                                                                  | Title                                                                                 |
+| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [M-01](#m-01-incorrect-asset-valuation-leading-to-lower-than-expected-profits-in-alchemix-strategy) | Incorrect Asset Valuation Leading to lower than expected Profits in Alchemix Strategy |
+| [M-02](#m-02-incorrect-balance-deployed-calculation-leading-to-profit-manipulation)                 | Incorrect Balance Deployed Calculation Leading to Profit Manipulation                 |
+| [M-03](#m-03-incorrect-asset-accounting-in-harvest-report-leading-to-share-price-manipulation)      | Incorrect Asset Accounting in Harvest Report Leading to Share Price Manipulation      |
+
 ## [M-01] Incorrect Asset Valuation Leading to lower than expected Profits in Alchemix Strategy
 ### Summary
 
