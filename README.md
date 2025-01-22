@@ -18,15 +18,15 @@ Ready to get your protocol reviewed? Reach out through:
 
 # 🏆 Honors and Distinctions 🏆
 
-
+- Ranked 4th on [Alchemix Transmuter](https://codehawks.cyfrin.io/c/2024-12-alchemix/results?lt=contest&page=1&sc=reward&sj=reward&t=leaderboard)
 - Ranked 5th on [Munchables- LandManager](https://code4rena.com/audits/2024-07-munchables)
 - Ranked 5th on [fLayer](https://audits.sherlock.xyz/contests/468/leaderboard)
 - Ranked 7th on [OKU](https://audits.sherlock.xyz/contests/641/leaderboard)
 
 # Audit Contests Achievements
-
-| Contest                                                                    | Date      | Description                                               | Findings                                       |  Rank  |                         Report                         |
-| :------------------------------------------------------------------------- | --------- | :-------------------------------------------------------- | :--------------------------------------------- | :----: | :----------------------------------------------------: |
-| [Munchables- LandManager](https://code4rena.com/audits/2024-07-munchables) | July 2024 | GameFi, Point Farming                                     | [1 L, 3 H](/Contests/2024-07-munchables.md)    | [5th](https://code4rena.com/audits/2024-07-munchables) 🏅 | [📄](https://code4rena.com/reports/2024-07-munchables) |
-| [fLayer](https://audits.sherlock.xyz/contests/468)          | Sep 2024  | NFT Liquidity, and Bridge Protocol (utilizing uniV4 Hook) | [8 H , 6 M (1 solo)](/Contests/2024-08-flayer.md) | [5th](https://audits.sherlock.xyz/contests/468/leaderboard) 🏅 | [📄](https://audits.sherlock.xyz/contests/468/report)  |
-| [OKU](https://audits.sherlock.xyz/contests/641)          | Nov 2024  | Advanced Order Book DEX | [5 H, 2M ](/Contests/2024-12-OKU.md) | [7th](https://audits.sherlock.xyz/contests/641/leaderboard) | [📄](https://audits.sherlock.xyz/contests/641/report)  |
+| Contest                                                                    | Date      | Description                                               | Findings                                          |                                                          Rank                                                           |                                                   Report                                                    |
+| :------------------------------------------------------------------------- | --------- | :-------------------------------------------------------- | :------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: |
+| [Munchables- LandManager](https://code4rena.com/audits/2024-07-munchables) | July 2024 | GameFi, Point Farming                                     | [3H, 1L](/Contests/2024-07-munchables.md)       |                                [5th](https://code4rena.com/audits/2024-07-munchables) 🏅                                |                           [📄](https://code4rena.com/reports/2024-07-munchables)                            |
+| [fLayer](https://audits.sherlock.xyz/contests/468)                         | Sep 2024  | NFT Liquidity, and Bridge Protocol (utilizing uniV4 Hook) | [8H , 6M (1 solo)](/Contests/2024-08-flayer.md) |                             [5th](https://audits.sherlock.xyz/contests/468/leaderboard) 🏅                              |                            [📄](https://audits.sherlock.xyz/contests/468/report)                            |
+| [OKU](https://audits.sherlock.xyz/contests/641)                            | Nov 2024  | Advanced Order Book DEX                                   | [5H, 2M ](/Contests/2024-12-OKU.md)              |                               [7th](https://audits.sherlock.xyz/contests/641/leaderboard)                               |                            [📄](https://audits.sherlock.xyz/contests/641/report)                            |
+| [Alchemix Transmuter](https://codehawks.cyfrin.io/c/2024-12-alchemix)      | Dec 2024  | Tokenized Yearn V3 Vaults Integration                     | [3M](/Contests/2024-12-alchemix.md)               | [4th](https://codehawks.cyfrin.io/c/2024-12-alchemix/results?lt=contest&page=1&sc=reward&sj=reward&t=leaderboard)<br>🏅 | [📄](https://codehawks.cyfrin.io/c/2024-12-alchemix/results?lt=contest&page=1&sc=reward&sj=reward&t=report) |
