@@ -2,7 +2,7 @@
 
 **BUGPULL** represents the collaborative work of two independent security researchers:
 
-- [Hunter](https://github.com/ililHunterlili)
+- [Hunter](https://github.com/0xHuntoor)
 - [Mostafa](https://github.com/rzizah)
 
 Each of us maintains our own active security research, but we join forces for select projects where our combined expertise can uncover the most critical vulnerabilities. Our individual and joint efforts have led to significant findings across DeFi protocols, Dapps, and competitive audits.
