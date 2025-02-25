@@ -4,7 +4,8 @@
 | [H-01](#h-01-incorrect-calculation-in-vesting-transfer-leads-to-excess-fund-claim)          | Incorrect Calculation in Vesting Transfer Leads to Excess Fund Claim          |
 | [H-02](#h-02-user-receives-fewer-vesting-tokens-than-expected-due-to-incorrect-calculation) | User Receives Fewer Vesting Tokens Than Expected Due to Incorrect Calculation |
 | [M-01](#m-01-underflow-in-claimable-dosing-claim-function)                                   | Underflow in `claimable` DOSing `claim` Function                              |
-
+| [L-01](#l-01-freeze-of-funds-due-to-wrong-value-passed) | freeze of funds due to wrong value passed |
+| [L-02](#l-02-wrong-value-passed-to-listvesting-will-dos-the-listing) | wrong value passed to `listVesting` will DOS the listing |
 
 ## [H-01] Incorrect Calculation in Vesting Transfer Leads to Excess Fund Claim
 
@@ -455,3 +456,154 @@ having the right implementation and successful transfer with this implementation
 ```diff
 ++   if (numOfSteps > _vestings[_beneficiary].stepsClaimed){
 ```
+
+
+## [L-01] freeze of funds due to wrong value passed 
+
+#### Finding Description and Impact
+
+An issue arises when the `totalAmount` of a transferred or created vesting is smaller than the `numOfSteps`. This leads to an incorrect calculation of the release rate, which result in freezing users' funds until the vesting period ends.
+
+##### Affected Functions
+
+1. **`SecondSwap_StepVesting::transferVesting`**
+
+```solidity
+File: SecondSwap_StepVesting.sol
+216:     function transferVesting(address _grantor, address _beneficiary, uint256 _amount) external {
+   // CODE
+229:         grantorVesting.totalAmount -= _amount;
+230:         grantorVesting.releaseRate = grantorVesting.totalAmount / numOfSteps;
+```
+
+2. **`SecondSwap_StepVesting::_createVesting`**
+
+```solidity
+File: SecondSwap_StepVesting.sol
+279:     function _createVesting(
+   // CODE
+292:               releaseRate: _totalAmount / (numOfSteps - _stepsClaimed),
+293:               totalAmount: _totalAmount
+294:           });
+295:       } else {
+296:           _vestings[_beneficiary].totalAmount += _totalAmount;
+297:           if (numOfSteps - _vestings[_beneficiary].stepsClaimed != 0) {
+298:               _vestings[_beneficiary].releaseRate =
+299:                     (_vestings[_beneficiary].totalAmount - _vestings[_beneficiary].amountClaimed) /
+300:                     (numOfSteps - _vestings[_beneficiary].stepsClaimed);
+```
+
+##### Impact
+
+- **Freezing of User Funds**: When the `totalAmount` gets smaller than `numOfSteps`, the formula for calculating `releaseRate` results in a division by a value that is too small and round to zero, locking the funds.
+    
+    The issue is observed in the `claimable` function:
+    
+```solidity
+File: SecondSwap_StepVesting.sol
+161: function claimable(address _beneficiary) public view returns (uint256, uint256) {
+// CODE
+178:       if (vesting.stepsClaimed + claimableSteps >= numOfSteps) {
+179:             claimableAmount = vesting.totalAmount - vesting.amountClaimed;
+180:             return (claimableAmount, claimableSteps);
+181:         }
+183:       claimableAmount = vesting.releaseRate * claimableSteps;
+184:       return (claimableAmount, claimableSteps);
+```
+
+#### Proof of Concept
+
+Consider the following scenario where a user is using a token with low decimals for vesting:
+
+- `totalAmount = 10,000` (value represented in token decimals)
+- `numOfSteps = 5,000`
+
+The user sells 6,000 tokens from the `totalAmount`:
+
+- New `totalAmount = 4,000`
+
+**In the `transferVesting` function**:
+
+```solidity
+releaseRate = grantorVesting.totalAmount / numOfSteps;
+releaseRate = 4,000 / 5,000 = 0
+```
+
+**this could apply to for `_createVesting` function as totalAmount is the bought amount**:
+
+```solidity
+releaseRate = _totalAmount / (numOfSteps - _stepsClaimed);
+releaseRate = 4,000 / 5,000 = 0
+```
+
+In both cases, the `releaseRate` becomes zero, effectively freezing the user's funds.
+
+#### Recommended Mitigation Steps
+
+To prevent this edge case, a check must be added to ensure that the `totalAmount` is sufficiently large compared to the number of steps.
+
+1. **For `transferVesting`**:
+
+```diff
+++    require(_totalAmount > numOfSteps, "totalAmount is too small");
+```
+
+2. **For `_createVesting`**:
+
+```diff
+++   require(_totalAmount > (numOfSteps - _stepsClaimed), "totalAmount is too small");
+```
+
+
+
+## [L-02] wrong value passed to `listVesting` will DOS the listing
+
+#### Finding description and impact
+
+In the `SecondSwap_Marketplace::listVesting` function, the `_discountPct` is not validated to ensure it is within the correct bounds (i.e., less than or equal to `BASE`). This oversight can cause issues where the listing becomes non-interactive, effectively resulting in a denial of service (DOS) without any immediate error.
+
+##### Impact
+
+- **Denial of Service (DOS) for Listings**: If an invalid discount percentage is passed, interactions with the listing will fail silently, effectively locking the listing and preventing any transactions or actions from occurring.
+
+
+#### Proof of Concept
+
+The issue arises in the following check within `listVesting`:
+
+```solidity
+File: SecondSwap_Marketplace.sol
+257:         require(
+258:           (_discountType != DiscountType.NO && _discountPct > 0) || (_discountType == DiscountType.NO),
+259:             "SS_Marketplace: Invalid discount amount"
+260:         );
+```
+
+This check does not validate that the `_discountPct` does not exceed `BASE`. Later, the invalid value is used in the `_getDiscountedPrice` function, where it causes incorrect calculations:
+
+```solidity
+File: SecondSwap_Marketplace.sol
+413:     function _getDiscountedPrice(Listing storage listing, uint256 _amount) private view returns (uint256) {
+   // CODE
+416:         if (listing.discountType == DiscountType.LINEAR) {
+417:@>         discountedPrice = (discountedPrice * (BASE - ((_amount * listing.discountPct) / listing.total))) / BASE;
+418:@>       } else if (listing.discountType == DiscountType.FIX) {
+419:           discountedPrice = (discountedPrice * (BASE - listing.discountPct)) / BASE;
+420:         }
+```
+
+If the `_discountPct` exceeds `BASE`, the discount calculation will not behave as expected, and it can silently cause the listing to be effectively "blocked" from further interaction.
+
+
+#### Recommended Mitigation Steps
+
+To prevent this issue, update the validation for `_discountPct` to ensure it is within valid bounds (i.e., it should not exceed `BASE`):
+
+```diff
+-- 257:         require((_discountType != DiscountType.NO && _discountPct > 0) || (_discountType == DiscountType.NO), "SS_Marketplace: Invalid discount amount");
+++ 257:     require((_discountType != DiscountType.NO && (_discountPct > 0 && _discountPct <= BASE)) || (_discountType == DiscountType.NO), "SS_Marketplace: Invalid discount amount");
+```
+
+This change ensures that the discount percentage is both greater than 0 and less than or equal to `BASE`, preventing any potential DOS attack or unexpected behavior.
+
+
