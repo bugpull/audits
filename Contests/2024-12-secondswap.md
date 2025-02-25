@@ -3,7 +3,7 @@
 | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | [H-01](#h-01-incorrect-calculation-in-vesting-transfer-leads-to-excess-fund-claim)          | Incorrect Calculation in Vesting Transfer Leads to Excess Fund Claim          |
 | [H-02](#h-02-user-receives-fewer-vesting-tokens-than-expected-due-to-incorrect-calculation) | User Receives Fewer Vesting Tokens Than Expected Due to Incorrect Calculation |
-| [M-01](m-01-underflow-in-claimable-dosing-claim-function)                                   | Underflow in `claimable` DOSing `claim` Function                              |
+| [M-01](#m-01-underflow-in-claimable-dosing-claim-function)                                   | Underflow in `claimable` DOSing `claim` Function                              |
 
 
 ## [H-01] Incorrect Calculation in Vesting Transfer Leads to Excess Fund Claim
