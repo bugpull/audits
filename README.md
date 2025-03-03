@@ -13,7 +13,7 @@ Check out our individual profiles to see our complete security work, and explore
 
 Ready to get your protocol reviewed? Reach out through:
 
-- [**Twitter**](https://x.com/bugpull) - [Hunter](https://x.com/IlIlHunterlIlI) / [Rzizah](https://x.com/rzizah_)
+- [**Twitter**](https://x.com/bugpull) - [Hunter](https://x.com/0xhuntoor) / [Rzizah](https://x.com/rzizah_)
 
 
 ## 🏆 Honors and Distinctions 🏆
